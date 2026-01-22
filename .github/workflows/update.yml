@@ -1,0 +1,34 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master", "main", "mainline" ]
+  pull_request:
+    branches: [ "master", "main", "mainline" ]
+  schedule:
+    - cron:  '05 15 * * 0'
+  workflow_dispatch:
+    inputs:
+      TAG_COMMAND:
+        description: 'Override the image tag by supplying a command that will be run and the output taken.'
+        required: false
+      IMAGE_TAG:
+        description: "Override the image tag by supplying an environment variable within the Dockerfile that will be used."
+        required: false
+
+jobs:
+  update-images:
+    strategy:
+      matrix:
+        workdir: [.]
+    uses: snw35/cicd/.github/workflows/github.yaml@main
+    with:
+      WORKDIR: ${{ matrix.workdir }}
+      IMAGE_TAG: GHRUNNER_VERSION
+    secrets: inherit
+
+  create-release:
+    needs: update-images
+    if: github.ref_name == github.event.repository.default_branch && needs.update-images.outputs.changed == 'true'
+    uses: snw35/cicd/.github/workflows/create-release.yaml@main
+    secrets: inherit
