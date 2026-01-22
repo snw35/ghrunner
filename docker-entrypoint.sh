@@ -14,9 +14,9 @@ if [ "$1" = 'run.sh' ]; then
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
     -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token | jq .token --raw-output)
-  ./run.sh --check --pat ${ACCESS_TOKEN}
-  config.sh --unattended --url https://github.com/${REPOSITORY} --token $REPOSITORY_TOKEN --disableupdate --replace [--name $RUNNER_NAME]
+    "https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token" | jq .token --raw-output)
+  ./run.sh --check --url "https://github.com/${REPOSITORY}" --pat "$REPOSITORY_TOKEN"
+  config.sh --unattended --url "https://github.com/${REPOSITORY}" --token "$REPOSITORY_TOKEN" --disableupdate --replace [--name "$RUNNER_NAME"]
   exec run.sh "$@"
 fi
 
