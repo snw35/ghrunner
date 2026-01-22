@@ -36,4 +36,4 @@ WORKDIR /opt/actions-runner
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-CMD ["/opt/actions-runner/run.sh"]
+CMD ["run.sh"]
