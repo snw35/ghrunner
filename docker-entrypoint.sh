@@ -17,7 +17,7 @@ if [ "$1" = '/opt/actions-runner/run.sh' ]; then
     "https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token" | jq .token --raw-output)
   /opt/actions-runner/run.sh --check --url "https://github.com/${REPOSITORY}" --pat "$REPOSITORY_TOKEN"
   /opt/actions-runner/config.sh --unattended --url "https://github.com/${REPOSITORY}" --token "$REPOSITORY_TOKEN" --disableupdate --replace [--name "$RUNNER_NAME"]
-  exec /opt/actions-runner/run.sh "$@"
+  exec /opt/actions-runner/run.sh
 fi
 
 # else default to run whatever the user wanted like "bash"
