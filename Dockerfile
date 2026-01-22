@@ -16,6 +16,7 @@ RUN apt-get update \
         bash \
         ca-certificates \
         curl \
+        jq \
     && mkdir actions-runner \
     && cd actions-runner \
     && curl -O -L $GHRUNNER_URL/$GHRUNNER_FILENAME \
