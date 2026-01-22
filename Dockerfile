@@ -6,6 +6,8 @@ ENV REPOSITORY=snw35/ghrunner
 ENV ACCESS_TOKEN=changeme
 ENV RUNNER_NAME=selfhosted
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+
 WORKDIR /opt
 
 ENV GHRUNNER_VERSION=2.331.0
@@ -27,12 +29,11 @@ RUN apt-get update \
     && useradd -l -m -s /bin/bash runner \
     && /opt/actions-runner/bin/installdependencies.sh \
     && chown -R runner:runner /opt/actions-runner \
-    && apt-get purge wget
+    && apt-get purge wget \
+    && chmod +x /docker-entrypoint.sh
 
 USER runner
 WORKDIR /opt/actions-runner
-
-COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
