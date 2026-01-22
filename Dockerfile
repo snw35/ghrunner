@@ -2,6 +2,10 @@ FROM debian:trixie-20260112-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV REPOSITORY=snw35/ghrunner
+ENV ACCESS_TOKEN=changeme
+ENV RUNNER_NAME=selfhosted
+
 WORKDIR /opt
 
 ENV GHRUNNER_VERSION=2.331.0

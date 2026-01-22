@@ -1,0 +1,10 @@
+services:
+
+  ghrunner:
+    container_name: ghrunner
+    image: snw35/ghrunner:latest
+    restart: always
+    environment:
+      - REPOSITORY=snw35/ghrunner
+      - ACCESS_TOKEN=changeme
+      - RUNNER_NAME=selfhosted

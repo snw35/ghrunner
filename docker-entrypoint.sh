@@ -10,8 +10,13 @@ fi
 
 # check if running run.sh
 if [ "$1" = 'run.sh' ]; then
-  REPOSITORY_TOKEN=$(curl -X POST -H "Authorization: token ${ACCESS_TOKEN}" -H "Accept: application/vnd.github+json" https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token | jq .token --raw-output)
-  config.sh --unattended --url $REPOSITORY_URL --token $REPOSITORY_TOKEN --disableupdate --replace [--name $RUNNER_NAME]
+  REPOSITORY_TOKEN=$(curl -L -X POST \
+    -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token | jq .token --raw-output)
+  ./run.sh --check --pat ${ACCESS_TOKEN}
+  config.sh --unattended --url https://github.com/${REPOSITORY} --token $REPOSITORY_TOKEN --disableupdate --replace [--name $RUNNER_NAME]
   exec run.sh "$@"
 fi
 
