@@ -2,10 +2,6 @@ FROM debian:trixie-20260112-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV REPOSITORY=snw35/ghrunner
-ENV ACCESS_TOKEN=changeme
-ENV RUNNER_NAME=selfhosted
-
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 WORKDIR /opt
