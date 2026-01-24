@@ -1,0 +1,14 @@
+[__config__]
+oldver = "old_ver.json"
+newver = "new_ver.json"
+
+[BASE]
+source = "container"
+container = "library/debian"
+include_regex = "trixie-\\d*-slim"
+
+[GHRUNNER]
+source = "github"
+github = "actions/runner"
+use_max_tag = true
+prefix = "v"
