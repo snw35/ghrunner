@@ -39,6 +39,9 @@ Edit the docker-compose file and set the following variables:
  * `REPOSITORY` - Set to the Github repository you want to configure the runner for. The runner will only accept jobs from this repo. The format must be `owner/repo`, e.g `snw35/ghrunner`.
  * `ACCESS_TOKEN` - Set to the fine-grained access token that you have created above.
  * `RUNNER_NAME` - You can choose the name your runner will have, or leave it at the default of 'selfhosted'.
+ * `RUNNER_WORKDIR` - Optional. If set, the runner will use this absolute path for its `_work` directory. This is useful for sharing a bind-mounted host path with Docker containers started via the host socket.
+
+If you set `RUNNER_WORKDIR`, bind-mount the same host path into the container (same absolute path) so the host Docker daemon and the runner see the same filesystem.
 
 ### Start Runner
 
