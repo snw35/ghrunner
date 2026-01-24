@@ -1,4 +1,4 @@
-# ghactions
+# ghrunner
 
 * ![Build Status](https://github.com/snw35/ghrunner/actions/workflows/update.yml/badge.svg)
 * [Dockerhub: snw35/ghrunner](https://hub.docker.com/r/snw35/ghrunner)
