@@ -8,3 +8,10 @@ services:
       - REPOSITORY=snw35/ghrunner
       - ACCESS_TOKEN=changeme
       - RUNNER_NAME=selfhosted
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

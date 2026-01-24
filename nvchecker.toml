@@ -4,8 +4,8 @@ newver = "new_ver.json"
 
 [BASE]
 source = "container"
-container = "library/debian"
-include_regex = "trixie-\\d*-slim"
+container = "nvidia/cuda"
+include_regex = "13.0.\\d+-base-ubuntu\\d+.\\d+"
 
 [GHRUNNER]
 source = "github"
