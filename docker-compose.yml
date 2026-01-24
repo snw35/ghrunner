@@ -4,6 +4,8 @@ services:
     container_name: ghrunner
     image: snw35/ghrunner:latest
     restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - REPOSITORY=snw35/ghrunner
       - ACCESS_TOKEN=changeme
