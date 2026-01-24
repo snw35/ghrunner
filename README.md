@@ -1,83 +1,62 @@
 # ghactions
-Github Actions container for self-hosted runners.
 
-runner@dd27eec030af:/opt/actions-runner$ ./config.sh --help
+* ![Build Status](https://github.com/snw35/ghrunner/actions/workflows/update.yml/badge.svg)
+* [Dockerhub: snw35/ghrunner](https://hub.docker.com/r/snw35/ghrunner)
 
-Commands:
- ./config.sh         Configures the runner
- ./config.sh remove  Unconfigures the runner
- ./run.sh            Runs the runner interactively. Does not require any options.
+Github Actions runner container for self-hosted runners.
 
-Options:
- --help     Prints the help for each command
- --version  Prints the runner version
- --commit   Prints the runner commit
- --check    Check the runner's network connectivity with GitHub server
+This container can be used to set up a self-hosted Github Actions runner, e.g an instance that will accept Github Actions jobs and run them on your own hardware.
 
-Config Options:
- --unattended           Disable interactive prompts for missing arguments. Defaults will be used for missing options
- --url string           Repository to add the runner to. Required if unattended
- --token string         Registration token. Required if unattended
- --name string          Name of the runner to configure (default dd27eec030af)
- --runnergroup string   Name of the runner group to add this runner to (defaults to the default runner group)
- --labels string        Custom labels that will be added to the runner. This option is mandatory if --no-default-labels is used.
- --no-default-labels    Disables adding the default labels: 'self-hosted,Linux,X64'
- --local                Removes the runner config files from your local machine. Used as an option to the remove command
- --work string          Relative runner work directory (default _work)
- --replace              Replace any existing runner with the same name (default false)
- --pat                  GitHub personal access token with repo scope. Used for checking network connectivity when executing `./run.sh --check`
- --disableupdate        Disable self-hosted runner automatic update to the latest released version`
- --ephemeral            Configure the runner to only take one job and then let the service un-configure the runner after the job finishes (default false)
+## How to Use
 
-Examples:
- Check GitHub server network connectivity:
-  ./run.sh --check --url <url> --pat <pat>
- Configure a runner non-interactively:
-  ./config.sh --unattended --url <url> --token <token>
- Configure a runner non-interactively, replacing any existing runner with the same name:
-  ./config.sh --unattended --url <url> --token <token> --replace [--name <name>]
- Configure a runner non-interactively with three extra labels:
-  ./config.sh --unattended --url <url> --token <token> --labels L1,L2,L3
+### Create Access Token
 
+First, you will need a fine-grained access token with enough permissions to allow self-hosted runners to register.
 
+In Github, navigate to:
+ * Settings
+   * Developer Settings
+     * Personal access tokens
+       * Fine-grained tokens
+         * Generate new token
 
-runner@d047d1866bd3:/opt/actions-runner$ ./run.sh --help
+Give the token a meaningful name and description, and (recommended) set the expiration date to a year ahead.
+Choose "Only select repositories" and select the repo you want to configure a self-hosted runner for.
+Click "Add permissions" and select "Administration", then change "Access: Read-only" to "Read and write".
 
-Commands:
- ./config.sh         Configures the runner
- ./config.sh remove  Unconfigures the runner
- ./run.sh            Runs the runner interactively. Does not require any options.
+Create the token and note it somewhere secure (password manager recommended).
 
-Options:
- --help     Prints the help for each command
- --version  Prints the runner version
- --commit   Prints the runner commit
- --check    Check the runner's network connectivity with GitHub server
+### Edit docker-compose.yaml
 
-Config Options:
- --unattended           Disable interactive prompts for missing arguments. Defaults will be used for missing options
- --url string           Repository to add the runner to. Required if unattended
- --token string         Registration token. Required if unattended
- --name string          Name of the runner to configure (default d047d1866bd3)
- --runnergroup string   Name of the runner group to add this runner to (defaults to the default runner group)
- --labels string        Custom labels that will be added to the runner. This option is mandatory if --no-default-labels is used.
- --no-default-labels    Disables adding the default labels: 'self-hosted,Linux,X64'
- --local                Removes the runner config files from your local machine. Used as an option to the remove command
- --work string          Relative runner work directory (default _work)
- --replace              Replace any existing runner with the same name (default false)
- --pat                  GitHub personal access token with repo scope. Used for checking network connectivity when executing `./run.sh --check`
- --disableupdate        Disable self-hosted runner automatic update to the latest released version`
- --ephemeral            Configure the runner to only take one job and then let the service un-configure the runner after the job finishes (default false)
+Clone the repo:
 
-Examples:
- Check GitHub server network connectivity:
-  ./run.sh --check --url <url> --pat <pat>
- Configure a runner non-interactively:
-  ./config.sh --unattended --url <url> --token <token>
- Configure a runner non-interactively, replacing any existing runner with the same name:
-  ./config.sh --unattended --url <url> --token <token> --replace [--name <name>]
- Configure a runner non-interactively with three extra labels:
-  ./config.sh --unattended --url <url> --token <token> --labels L1,L2,L3
-Runner listener exit with 0 return code, stop the service, no retry needed.
+```
+git clone https://github.com/snw35/ghrunner
+```
 
+Edit the docker-compose file and set the following variables:
 
+ * `REPOSITORY` - Set to the Github repository you want to configure the runner for. The runner will only accept jobs from this repo. The format must be `owner/repo`, e.g `snw35/ghrunner`.
+ * `ACCESS_TOKEN` - Set to the fine-grained access token that you have created above.
+ * `RUNNER_NAME` - You can choose the name your runner will have, or leave it at the default of 'selfhosted'.
+
+### Start Runner
+
+Bring the compose project up:
+
+```
+docker compose up -d && docker compose logs -f
+```
+
+You should see the runner successfully register if your token and settings are correct:
+
+```
+ghrunner  | √ Connected to GitHub
+ghrunner  |
+ghrunner  | Current runner version: '2.331.0'
+ghrunner  | 2026-01-23 11:16:39Z: Listening for Jobs
+```
+
+Under your repo on Github, you can navigate to "Actions" -> "Runners" -> "Self-hosted runners" to view your self-hosted runners. You should see the runner appear with the name you gave it, or 'selfhosted' by default.
+
+Every time you restart the runner, it will re-use this name, so you won't accumulate stale entries. If you want to remove this runner entry, see https://github.com/beikeni/delete-github-runners
