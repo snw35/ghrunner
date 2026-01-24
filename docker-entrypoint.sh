@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
+# ensure correct HOME when dropping privileges
+set_runner_env() {
+  RUNNER_HOME=$(getent passwd runner | cut -d: -f6)
+  if [ -z "$RUNNER_HOME" ]; then
+    RUNNER_HOME=/home/runner
+  fi
+  export HOME="$RUNNER_HOME"
+  export USER=runner
+  export LOGNAME=runner
+  export XDG_CONFIG_HOME="$RUNNER_HOME/.config"
+}
+
 # drop root privileges after fixing docker.sock group ownership
 drop_to_runner() {
+  set_runner_env
   if command -v setpriv >/dev/null 2>&1; then
     exec setpriv --reuid=runner --regid=runner --init-groups /docker-entrypoint.sh "$@"
   elif command -v runuser >/dev/null 2>&1; then
