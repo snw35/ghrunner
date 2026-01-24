@@ -5,7 +5,7 @@
 
 Github Actions runner container for self-hosted runners.
 
-This container can be used to set up a self-hosted Github Actions runner, e.g an instance that will accept Github Actions jobs and run them on your own hardware.
+This container can be used to set up a self-hosted Github Actions runner, e.g an instance that will accept Github Actions jobs and run them on your own hardware. It supports GPU pass-through for CUDA 13 and earlier enabled jobs.
 
 ## How to Use
 

@@ -1,4 +1,4 @@
-FROM debian:trixie-20260112-slim
+FROM FROM nvidia/cuda:13.0.2-base-ubuntu24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
