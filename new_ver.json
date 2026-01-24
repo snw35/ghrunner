@@ -2,7 +2,7 @@
   "version": 2,
   "data": {
     "BASE": {
-      "version": "trixie-20260112-slim"
+      "version": "13.0.2-base-ubuntu24.04"
     },
     "GHRUNNER": {
       "version": "2.331.0",
