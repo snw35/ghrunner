@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "data": {
+    "BASE": {
+      "version": "trixie-20260112-slim"
+    },
+    "GHRUNNER": {
+      "version": "2.331.0",
+      "gitref": "refs/tags/v2.331.0",
+      "revision": "39f6c643d3032f8795fa71f1482731ca90c8e038",
+      "url": "https://github.com/actions/runner/releases/tag/v2.331.0"
+    }
+  }
+}
