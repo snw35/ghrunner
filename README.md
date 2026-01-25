@@ -3,9 +3,16 @@
 * ![Build Status](https://github.com/snw35/ghrunner/actions/workflows/update.yml/badge.svg)
 * [Dockerhub: snw35/ghrunner](https://hub.docker.com/r/snw35/ghrunner)
 
-Github Actions runner container for self-hosted runners.
+Github Actions runner container with:
 
-This container can be used to set up a self-hosted Github Actions runner, e.g an instance that will accept Github Actions jobs and run them on your own hardware. It supports GPU pass-through for CUDA 13 and earlier enabled jobs.
+ * CUDA support and Nvidia GPU pass-through.
+ * Docker and docker compose support with docker socket bind-mount.
+ * Shared host bind-mount for filesystem access.
+ * Automatic permission fixes for filesystem and docker socket.
+
+This container can be used to set up a self-hosted Github Actions runner that will accept Github Actions jobs and run them on your own hardware. It supports GPU pass-through for CUDA 13 and earlier enabled jobs, docker-socket pass-through, and docker compose for running containers during actions workflows.
+
+This container and setup constructs Sageattention wheels for https://github.com/snw35/sageattention-wheel.
 
 ## How to Use
 
