@@ -3,9 +3,16 @@
 * ![Build Status](https://github.com/snw35/ghrunner/actions/workflows/update.yml/badge.svg)
 * [Dockerhub: snw35/ghrunner](https://hub.docker.com/r/snw35/ghrunner)
 
-Github Actions runner container for self-hosted runners.
+Github Actions runner container with:
 
-This container can be used to set up a self-hosted Github Actions runner, e.g an instance that will accept Github Actions jobs and run them on your own hardware. It supports GPU pass-through for CUDA 13 and earlier enabled jobs.
+ * CUDA support and Nvidia GPU pass-through.
+ * Docker and docker compose support with docker socket bind-mount.
+ * Shared host bind-mount for filesystem access.
+ * Automatic permission fixes for filesystem and docker socket.
+
+This container can be used to set up a self-hosted Github Actions runner that will accept Github Actions jobs and run them on your own hardware. It supports GPU pass-through for CUDA 13 and earlier enabled jobs, docker-socket pass-through, and docker compose for running containers during actions workflows.
+
+This container and setup constructs Sageattention wheels for https://github.com/snw35/sageattention-wheel.
 
 ## How to Use
 
@@ -39,6 +46,9 @@ Edit the docker-compose file and set the following variables:
  * `REPOSITORY` - Set to the Github repository you want to configure the runner for. The runner will only accept jobs from this repo. The format must be `owner/repo`, e.g `snw35/ghrunner`.
  * `ACCESS_TOKEN` - Set to the fine-grained access token that you have created above.
  * `RUNNER_NAME` - You can choose the name your runner will have, or leave it at the default of 'selfhosted'.
+ * `RUNNER_WORKDIR` - Optional. If set, the runner will use this absolute path for its `_work` directory. This is useful for sharing a bind-mounted host path with Docker containers started via the host socket.
+
+If you set `RUNNER_WORKDIR`, bind-mount the same host path into the container (same absolute path) so the host Docker daemon and the runner see the same filesystem.
 
 ### Start Runner
 

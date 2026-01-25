@@ -4,10 +4,14 @@ services:
     container_name: ghrunner
     image: snw35/ghrunner:latest
     restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /srv/ghrunner/work:/srv/ghrunner/work
     environment:
       - REPOSITORY=snw35/ghrunner
       - ACCESS_TOKEN=changeme
       - RUNNER_NAME=selfhosted
+      - RUNNER_WORKDIR=/srv/ghrunner/work
     deploy:
       resources:
         reservations:
