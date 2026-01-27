@@ -68,7 +68,7 @@ if [ "$1" = '/opt/actions-runner/run.sh' ]; then
   if [ -n "$RUNNER_WORKDIR" ]; then
     WORKDIR_ARGS+=(--work "$RUNNER_WORKDIR")
   fi
-  /opt/actions-runner/config.sh --unattended --url "https://github.com/${REPOSITORY}" --token "$REPOSITORY_TOKEN" --disableupdate --replace --name "$RUNNER_NAME" --labels "gpu" --labels "dind" "${WORKDIR_ARGS[@]}"
+  /opt/actions-runner/config.sh --unattended --url "https://github.com/${REPOSITORY}" --token "$REPOSITORY_TOKEN" --disableupdate --replace --name "$RUNNER_NAME" --labels "gpu,dind" "${WORKDIR_ARGS[@]}"
   exec /opt/actions-runner/run.sh
 fi
 
