@@ -12,3 +12,10 @@ source = "github"
 github = "actions/runner"
 use_max_tag = true
 prefix = "v"
+
+[DOCKER]
+source = "apt"
+pkg = "docker-ce"
+mirror = "https://download.docker.com/linux/ubuntu"
+suite = "jammy"
+repo = "stable"
