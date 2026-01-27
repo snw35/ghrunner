@@ -4,6 +4,9 @@
     "BASE": {
       "version": "13.0.2-base-ubuntu24.04"
     },
+    "DOCKER": {
+      "version": "5:29.2.0-1~ubuntu.22.04~jammy"
+    },
     "GHRUNNER": {
       "version": "2.331.0",
       "gitref": "refs/tags/v2.331.0",
