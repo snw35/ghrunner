@@ -8,10 +8,10 @@
       "version": "5:29.2.1-1~ubuntu.22.04~jammy"
     },
     "GHRUNNER": {
-      "version": "2.331.0",
-      "gitref": "refs/tags/v2.331.0",
-      "revision": "39f6c643d3032f8795fa71f1482731ca90c8e038",
-      "url": "https://github.com/actions/runner/releases/tag/v2.331.0"
+      "version": "2.332.0",
+      "gitref": "refs/tags/v2.332.0",
+      "revision": "a153d802ff96c51ac1b8d72dd8a38ebe830398fc",
+      "url": "https://github.com/actions/runner/releases/tag/v2.332.0"
     }
   }
 }
