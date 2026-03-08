@@ -30,7 +30,7 @@ RUN apt-get update \
 
 COPY docker.sources /etc/apt/sources.list.d/docker.sources
 
-ENV DOCKER_VERSION=5:29.2.1-1~ubuntu.22.04~jammy
+ENV DOCKER_VERSION=5:29.3.0-1~ubuntu.22.04~jammy
 
 RUN install -m 0755 -d /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc \
