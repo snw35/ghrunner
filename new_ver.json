@@ -5,13 +5,13 @@
       "version": "13.0.2-base-ubuntu24.04"
     },
     "DOCKER": {
-      "version": "5:29.3.0-1~ubuntu.22.04~jammy"
+      "version": "5:29.3.1-1~ubuntu.22.04~jammy"
     },
     "GHRUNNER": {
-      "version": "2.333.0",
-      "gitref": "refs/tags/v2.333.0",
-      "revision": "8d231aaf863e5fcdd02d35bdfda369feafd08adb",
-      "url": "https://github.com/actions/runner/releases/tag/v2.333.0"
+      "version": "2.333.1",
+      "gitref": "refs/tags/v2.333.1",
+      "revision": "6792966801e8925346735b68c03bf9f347af4646",
+      "url": "https://github.com/actions/runner/releases/tag/v2.333.1"
     }
   }
 }
