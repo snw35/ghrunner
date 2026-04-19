@@ -2,7 +2,7 @@
   "version": 2,
   "data": {
     "BASE": {
-      "version": "13.0.2-base-ubuntu24.04"
+      "version": "13.0.3-base-ubuntu24.04"
     },
     "DOCKER": {
       "version": "5:29.4.0-1~ubuntu.22.04~jammy"
