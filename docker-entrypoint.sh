@@ -59,16 +59,18 @@ fi
 
 # check if running run.sh
 if [ "$1" = '/opt/actions-runner/run.sh' ]; then
-  REPOSITORY_TOKEN=$(curl -L -X POST \
-    -H "Authorization: Bearer ${ACCESS_TOKEN}" \
-    -H "Accept: application/vnd.github+json" \
-    -H "X-GitHub-Api-Version: 2022-11-28" \
-    "https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token" | jq .token --raw-output)
-  WORKDIR_ARGS=()
-  if [ -n "$RUNNER_WORKDIR" ]; then
-    WORKDIR_ARGS+=(--work "$RUNNER_WORKDIR")
+  if [ ! -f /opt/actions-runner/.runner ]; then
+    REPOSITORY_TOKEN=$(curl -L -X POST \
+      -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+      -H "Accept: application/vnd.github+json" \
+      -H "X-GitHub-Api-Version: 2022-11-28" \
+      "https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token" | jq .token --raw-output)
+    WORKDIR_ARGS=()
+    if [ -n "$RUNNER_WORKDIR" ]; then
+      WORKDIR_ARGS+=(--work "$RUNNER_WORKDIR")
+    fi
+    /opt/actions-runner/config.sh --unattended --url "https://github.com/${REPOSITORY}" --token "$REPOSITORY_TOKEN" --disableupdate --replace --name "$RUNNER_NAME" --labels "gpu,dind" "${WORKDIR_ARGS[@]}"
   fi
-  /opt/actions-runner/config.sh --unattended --url "https://github.com/${REPOSITORY}" --token "$REPOSITORY_TOKEN" --disableupdate --replace --name "$RUNNER_NAME" --labels "gpu,dind" "${WORKDIR_ARGS[@]}"
   exec /opt/actions-runner/run.sh
 fi
 
