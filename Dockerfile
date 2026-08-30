@@ -6,10 +6,10 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 WORKDIR /opt
 
-ENV GHRUNNER_VERSION=2.336.0
+ENV GHRUNNER_VERSION=2.337.0
 ENV GHRUNNER_URL=https://github.com/actions/runner/releases/download/v${GHRUNNER_VERSION}
 ENV GHRUNNER_FILENAME=actions-runner-linux-x64-${GHRUNNER_VERSION}.tar.gz
-ENV GHRUNNER_SHA256=04cf0be1aff4c3ec3554466c39124ca250e3effd8873bb7e8d68535aa9505d5d
+ENV GHRUNNER_SHA256=70920811a4f8ad4328818682bca5c6469c1c942fab52448868071d0063816613
 
 RUN apt-get update \
     && apt-get install -y \
