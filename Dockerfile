@@ -6,10 +6,10 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 WORKDIR /opt
 
-ENV GHRUNNER_VERSION=2.337.0
+ENV GHRUNNER_VERSION=2.338.0
 ENV GHRUNNER_URL=https://github.com/actions/runner/releases/download/v${GHRUNNER_VERSION}
 ENV GHRUNNER_FILENAME=actions-runner-linux-x64-${GHRUNNER_VERSION}.tar.gz
-ENV GHRUNNER_SHA256=70920811a4f8ad4328818682bca5c6469c1c942fab52448868071d0063816613
+ENV GHRUNNER_SHA256=af4b794c1bc41d73d40535e3fe092a39f9679cd8d965954c2aca25a05ca41d32
 
 RUN apt-get update \
     && apt-get install -y \
@@ -30,7 +30,7 @@ RUN apt-get update \
 
 COPY docker.sources /etc/apt/sources.list.d/docker.sources
 
-ENV DOCKER_VERSION=5:29.8.2-1~ubuntu.22.04~jammy
+ENV DOCKER_VERSION=5:29.9.0-1~ubuntu.22.04~jammy
 
 RUN install -m 0755 -d /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc \
